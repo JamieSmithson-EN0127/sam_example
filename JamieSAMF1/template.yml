@@ -60,7 +60,7 @@ Resources:
         Api:
           Type: Api
           Properties:
-            Path: /{id}
+            Path: /{Year}
             Method: GET
   # Each Lambda function is defined by properties:
   # https://github.com/awslabs/serverless-application-model/blob/master/versions/2016-10-31.md#awsserverlessfunction
@@ -81,6 +81,22 @@ Resources:
           Properties:
             Path: /
             Method: POST
+            
+  deleteItemFunction:
+    Type: AWS::Serverless::Function
+    Properties:
+      Handler: src/handlers/delete-item.deleteItemHandler
+      Description: A simple example includes a HTTP get method to get all items from a DynamoDB table.
+      Policies:
+        # Give Create/Read/Update/Delete Permissions to the SampleTable
+        - DynamoDBCrudPolicy:
+            TableName: jamie_f1
+      Events:
+        Api:
+          Type: Api
+          Properties:
+            Path: /{Year}
+            Method: DELETE
   # Simple syntax to create a DynamoDB table with a single attribute primary key, more in
   # https://github.com/awslabs/serverless-application-model/blob/master/versions/2016-10-31.md#awsserverlesssimpletable
 
